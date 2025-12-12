@@ -25,4 +25,3 @@ bitsandbytes
 duckduckgo_search
 rank_bm25
 faiss-cpu
-ddgs

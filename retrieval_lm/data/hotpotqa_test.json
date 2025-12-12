@@ -1,7 +1,7 @@
 [
     {
         "id": "5ab7f4f755429919006aa2a6",
-        "question": "Which magazine was started first Arthur's Magazine or First for Women?",
+        "question_text": "Which magazine was started first Arthur's Magazine or First for Women?",
         "answer": "Arthur's Magazine",
         "answers_objects": [
             {
@@ -35,7 +35,7 @@
     },
     {
         "id": "5a8b57f25542990a00fa4d62",
-        "question": "The Oberoi family is part of a hotel company that has a head office in what city?",
+        "question_text": "The Oberoi family is part of a hotel company that has a head office in what city?",
         "answer": "Delhi",
         "answers_objects": [
             {
@@ -69,7 +69,7 @@
     },
     {
         "id": "5ae0662e554299140046f858",
-        "question": "Musician and satirist Allie Goertz wrote a song about the \"The Simpsons\" character Milhouse, who Matt Groening named after who?",
+        "question_text": "Musician and satirist Allie Goertz wrote a song about the \"The Simpsons\" character Milhouse, who Matt Groening named after who?",
         "answer": "President Richard Nixon",
         "answers_objects": [
             {
@@ -103,7 +103,7 @@
     },
     {
         "id": "5a7f6b1e55429914007dadf5",
-        "question": "What nationality was the person who founded the noble family of which Elizabeth, Duchess of Hohenberg was a member by marriage?",
+        "question_text": "What nationality was the person who founded the noble family of which Elizabeth, Duchess of Hohenberg was a member by marriage?",
         "answer": "Austrian",
         "answers_objects": [
             {
@@ -137,7 +137,7 @@
     },
     {
         "id": "5a7c3b6955429911007a25a0",
-        "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+        "question_text": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
         "answer": "Chief of Protocol",
         "answers_objects": [
             {
