@@ -9,29 +9,7 @@
             }
         ],
         "type": "comparison",
-        "level": "medium",
-        "contexts": [
-            {
-                "title": "Arthur's Magazine",
-                "sentences": [
-                    "Arthur's Magazine was founded in 1844.",
-                    "It was a popular publication in the 19th century."
-                ],
-                "is_supporting": true
-            },
-            {
-                "title": "First for Women",
-                "sentences": [
-                    "First for Women is a magazine founded in 1989.",
-                    "It focuses on women's lifestyle content."
-                ],
-                "is_supporting": false
-            }
-        ],
-        "supporting_facts": {
-            "title": ["Arthur's Magazine", "First for Women"],
-            "sent_id": [0, 0]
-        }
+        "level": "medium"
     },
     {
         "id": "5a8b57f25542990a00fa4d62",
@@ -43,29 +21,7 @@
             }
         ],
         "type": "bridge",
-        "level": "medium",
-        "contexts": [
-            {
-                "title": "The Oberoi Group",
-                "sentences": [
-                    "The Oberoi Group is a hotel company founded by the Oberoi family.",
-                    "The head office is located in Delhi, India."
-                ],
-                "is_supporting": true
-            },
-            {
-                "title": "Oberoi Family",
-                "sentences": [
-                    "The Oberoi family is an Indian business family.",
-                    "They are known for their hospitality ventures."
-                ],
-                "is_supporting": false
-            }
-        ],
-        "supporting_facts": {
-            "title": ["The Oberoi Group", "The Oberoi Group"],
-            "sent_id": [0, 1]
-        }
+        "level": "medium"
     },
     {
         "id": "5ae0662e554299140046f858",
@@ -77,29 +33,7 @@
             }
         ],
         "type": "bridge",
-        "level": "hard",
-        "contexts": [
-            {
-                "title": "Milhouse Van Houten",
-                "sentences": [
-                    "Milhouse Van Houten is a fictional character from The Simpsons.",
-                    "Matt Groening named the character after President Richard Nixon."
-                ],
-                "is_supporting": true
-            },
-            {
-                "title": "Allie Goertz",
-                "sentences": [
-                    "Allie Goertz is a musician and satirist.",
-                    "She wrote a song about the character Milhouse."
-                ],
-                "is_supporting": false
-            }
-        ],
-        "supporting_facts": {
-            "title": ["Milhouse Van Houten", "Allie Goertz"],
-            "sent_id": [1, 1]
-        }
+        "level": "hard"
     },
     {
         "id": "5a7f6b1e55429914007dadf5",
@@ -111,29 +45,7 @@
             }
         ],
         "type": "bridge",
-        "level": "hard",
-        "contexts": [
-            {
-                "title": "Princess Elizabeth, Duchess of Hohenberg",
-                "sentences": [
-                    "Princess Elizabeth was a member of the House of Habsburg-Lorraine through marriage.",
-                    "She was married into the Hohenberg family."
-                ],
-                "is_supporting": true
-            },
-            {
-                "title": "House of Habsburg-Lorraine",
-                "sentences": [
-                    "The House of Habsburg-Lorraine is an Austrian noble family.",
-                    "It was founded by members of the Austrian nobility."
-                ],
-                "is_supporting": false
-            }
-        ],
-        "supporting_facts": {
-            "title": ["Princess Elizabeth, Duchess of Hohenberg", "House of Habsburg-Lorraine"],
-            "sent_id": [0, 0]
-        }
+        "level": "hard"
     },
     {
         "id": "5a7c3b6955429911007a25a0",
@@ -145,28 +57,6 @@
             }
         ],
         "type": "bridge",
-        "level": "hard",
-        "contexts": [
-            {
-                "title": "Shirley Temple",
-                "sentences": [
-                    "Shirley Temple was an actress who portrayed Corliss Archer.",
-                    "She later served as Chief of Protocol for the United States."
-                ],
-                "is_supporting": true
-            },
-            {
-                "title": "Kiss and Tell (1945 film)",
-                "sentences": [
-                    "Kiss and Tell is a 1945 film starring Shirley Temple.",
-                    "In this film, she played the role of Corliss Archer."
-                ],
-                "is_supporting": false
-            }
-        ],
-        "supporting_facts": {
-            "title": ["Shirley Temple", "Kiss and Tell (1945 film)"],
-            "sent_id": [1, 1]
-        }
+        "level": "hard"
     }
 ]

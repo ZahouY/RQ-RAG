@@ -30,7 +30,7 @@ python ./inference.py \
 --use_search_engine \
 --use_hf \
 --task \
-hotpotqa \
+hotpotqa_duckduckgo \
 --tree_decode \
 --oracle \
 --max_depth \
@@ -38,7 +38,7 @@ hotpotqa \
 --search_engine_type \
 duckduckgo \
 --expand_on_tokens \
-[S_Rewritten_Query] \
-[S_Decomposed_Query] \
-[S_Disambiguated_Query] \
-[A_Response]
+"[S_Rewritten_Query]" \
+"[S_Decomposed_Query]" \
+"[S_Disambiguated_Query]" \
+"[A_Response]"
