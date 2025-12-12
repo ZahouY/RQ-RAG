@@ -30,7 +30,7 @@ python ./inference.py \
 --use_search_engine \
 --use_hf \
 --task \
-hotpotqa_duckduckgo \
+popqa_longtail_w_gs \
 --tree_decode \
 --oracle \
 --max_depth \
