@@ -20,7 +20,7 @@ python ./inference.py \
 --model_name_or_path \
 "../models/rq_rag_llama2_7B" \
 --input_file \
-"../data/hotpotqa_test.json" \
+"data/hotpotqa_test.json" \
 --max_new_tokens \
 100 \
 --output_path \

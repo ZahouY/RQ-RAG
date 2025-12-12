@@ -8,3 +8,4 @@ echo "=== Copie du repo RQ-RAG vers le HPC ==="
 scp -r /home/zahou/Bureau/DLA/RQ-RAG yaszahou@juliet.mesonet.fr:~/
 
 echo "=== Copie terminée ==="
+#scp -r /home/zahou/Bureau/DLA/RQ-RAG/retrieval_lm/data/* yaszahou@juliet.mesonet.fr:~/RQ-RAG/retrieval_lm/data/
