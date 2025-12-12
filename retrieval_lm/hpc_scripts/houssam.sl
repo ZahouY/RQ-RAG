@@ -20,7 +20,7 @@ python ./inference.py \
 --model_name_or_path \
 "../models/rq_rag_llama2_7B" \
 --input_file \
-"/home/yaszahou/RQ-RAG/retrieval_lm/data/demo_popqa.jsonl" \
+"~/RQ-RAG/retrieval_lm/data/demo_popqa.jsonl" \
 --output_path \
 "../output/demo_popqa" \
 --ndocs 3 \
