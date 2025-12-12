@@ -3,110 +3,145 @@
         "id": "5ab7f4f755429919006aa2a6",
         "question": "Which magazine was started first Arthur's Magazine or First for Women?",
         "answer": "Arthur's Magazine",
-        "answers_objects": [
-            {
-                "answer": "Arthur's Magazine"
-            }
-        ],
         "type": "comparison",
         "level": "medium",
-        "supporting_facts": [
-            [
-                "Arthur's Magazine",
-                0
-            ],
-            [
-                "First for Women",
-                0
-            ]
-        ]
+        "contexts": [
+            {
+                "title": "Arthur's Magazine",
+                "sentences": [
+                    "Arthur's Magazine was founded in 1844.",
+                    "It was a popular publication in the 19th century."
+                ],
+                "is_supporting": true
+            },
+            {
+                "title": "First for Women",
+                "sentences": [
+                    "First for Women is a magazine founded in 1989.",
+                    "It focuses on women's lifestyle content."
+                ],
+                "is_supporting": true
+            }
+        ],
+        "supporting_facts": {
+            "title": ["Arthur's Magazine", "First for Women"],
+            "sent_id": [0, 0]
+        }
     },
     {
         "id": "5a8b57f25542990a00fa4d62",
         "question": "The Oberoi family is part of a hotel company that has a head office in what city?",
         "answer": "Delhi",
-        "answers_objects": [
-            {
-                "answer": "Delhi"
-            }
-        ],
         "type": "bridge",
         "level": "medium",
-        "supporting_facts": [
-            [
-                "The Oberoi Group",
-                0
-            ],
-            [
-                "The Oberoi Group",
-                1
-            ]
-        ]
+        "contexts": [
+            {
+                "title": "The Oberoi Group",
+                "sentences": [
+                    "The Oberoi Group is a hotel company founded by the Oberoi family.",
+                    "The head office is located in Delhi, India."
+                ],
+                "is_supporting": true
+            },
+            {
+                "title": "Oberoi Family",
+                "sentences": [
+                    "The Oberoi family is an Indian business family.",
+                    "They are known for their hospitality ventures."
+                ],
+                "is_supporting": false
+            }
+        ],
+        "supporting_facts": {
+            "title": ["The Oberoi Group", "The Oberoi Group"],
+            "sent_id": [0, 1]
+        }
     },
     {
         "id": "5ae0662e554299140046f858",
         "question": "Musician and satirist Allie Goertz wrote a song about the \"The Simpsons\" character Milhouse, who Matt Groening named after who?",
         "answer": "President Richard Nixon",
-        "answers_objects": [
-            {
-                "answer": "President Richard Nixon"
-            }
-        ],
         "type": "bridge",
         "level": "hard",
-        "supporting_facts": [
-            [
-                "Milhouse Van Houten",
-                0
-            ],
-            [
-                "Allie Goertz",
-                0
-            ]
-        ]
+        "contexts": [
+            {
+                "title": "Milhouse Van Houten",
+                "sentences": [
+                    "Milhouse Van Houten is a fictional character from The Simpsons.",
+                    "Matt Groening named the character after President Richard Nixon."
+                ],
+                "is_supporting": true
+            },
+            {
+                "title": "Allie Goertz",
+                "sentences": [
+                    "Allie Goertz is a musician and satirist.",
+                    "She wrote a song about the character Milhouse."
+                ],
+                "is_supporting": true
+            }
+        ],
+        "supporting_facts": {
+            "title": ["Milhouse Van Houten", "Allie Goertz"],
+            "sent_id": [1, 1]
+        }
     },
     {
         "id": "5a7f6b1e55429914007dadf5",
         "question": "What nationality was the person who founded the noble family of which Elizabeth, Duchess of Hohenberg was a member by marriage?",
         "answer": "Austrian",
-        "answers_objects": [
-            {
-                "answer": "Austrian"
-            }
-        ],
         "type": "bridge",
         "level": "hard",
-        "supporting_facts": [
-            [
-                "Princess Elizabeth, Duchess of Hohenberg",
-                0
-            ],
-            [
-                "House of Habsburg-Lorraine",
-                0
-            ]
-        ]
+        "contexts": [
+            {
+                "title": "Princess Elizabeth, Duchess of Hohenberg",
+                "sentences": [
+                    "Princess Elizabeth was a member of the House of Habsburg-Lorraine through marriage.",
+                    "She was married into the Hohenberg family."
+                ],
+                "is_supporting": true
+            },
+            {
+                "title": "House of Habsburg-Lorraine",
+                "sentences": [
+                    "The House of Habsburg-Lorraine is an Austrian noble family.",
+                    "It was founded by members of the Austrian nobility."
+                ],
+                "is_supporting": true
+            }
+        ],
+        "supporting_facts": {
+            "title": ["Princess Elizabeth, Duchess of Hohenberg", "House of Habsburg-Lorraine"],
+            "sent_id": [0, 0]
+        }
     },
     {
         "id": "5a7c3b6955429911007a25a0",
         "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
         "answer": "Chief of Protocol",
-        "answers_objects": [
-            {
-                "answer": "Chief of Protocol"
-            }
-        ],
         "type": "bridge",
         "level": "hard",
-        "supporting_facts": [
-            [
-                "Shirley Temple",
-                0
-            ],
-            [
-                "Kiss and Tell (1945 film)",
-                0
-            ]
-        ]
+        "contexts": [
+            {
+                "title": "Shirley Temple",
+                "sentences": [
+                    "Shirley Temple was an actress who portrayed Corliss Archer.",
+                    "She later served as Chief of Protocol for the United States."
+                ],
+                "is_supporting": true
+            },
+            {
+                "title": "Kiss and Tell (1945 film)",
+                "sentences": [
+                    "Kiss and Tell is a 1945 film starring Shirley Temple.",
+                    "In this film, she played the role of Corliss Archer."
+                ],
+                "is_supporting": true
+            }
+        ],
+        "supporting_facts": {
+            "title": ["Shirley Temple", "Kiss and Tell (1945 film)"],
+            "sent_id": [1, 1]
+        }
     }
 ]
