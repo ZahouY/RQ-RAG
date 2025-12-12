@@ -1,0 +1,82 @@
+[
+    {
+        "question": "Which magazine was started first Arthur's Magazine or First for Women?",
+        "answer": "Arthur's Magazine",
+        "type": "comparison",
+        "level": "medium",
+        "supporting_facts": [
+            [
+                "Arthur's Magazine",
+                0
+            ],
+            [
+                "First for Women",
+                0
+            ]
+        ]
+    },
+    {
+        "question": "The Oberoi family is part of a hotel company that has a head office in what city?",
+        "answer": "Delhi",
+        "type": "bridge",
+        "level": "medium",
+        "supporting_facts": [
+            [
+                "The Oberoi Group",
+                0
+            ],
+            [
+                "The Oberoi Group",
+                1
+            ]
+        ]
+    },
+    {
+        "question": "Musician and satirist Allie Goertz wrote a song about the \"The Simpsons\" character Milhouse, who Matt Groening named after who?",
+        "answer": "President Richard Nixon",
+        "type": "bridge",
+        "level": "hard",
+        "supporting_facts": [
+            [
+                "Milhouse Van Houten",
+                0
+            ],
+            [
+                "Allie Goertz",
+                0
+            ]
+        ]
+    },
+    {
+        "question": "What nationality was the person who founded the noble family of which Elizabeth, Duchess of Hohenberg was a member by marriage?",
+        "answer": "Austrian",
+        "type": "bridge",
+        "level": "hard",
+        "supporting_facts": [
+            [
+                "Princess Elizabeth, Duchess of Hohenberg",
+                0
+            ],
+            [
+                "House of Habsburg-Lorraine",
+                0
+            ]
+        ]
+    },
+    {
+        "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+        "answer": "Chief of Protocol",
+        "type": "bridge",
+        "level": "hard",
+        "supporting_facts": [
+            [
+                "Shirley Temple",
+                0
+            ],
+            [
+                "Kiss and Tell (1945 film)",
+                0
+            ]
+        ]
+    }
+]
