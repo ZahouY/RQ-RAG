@@ -3,6 +3,11 @@
         "id": "5ab7f4f755429919006aa2a6",
         "question": "Which magazine was started first Arthur's Magazine or First for Women?",
         "answer": "Arthur's Magazine",
+        "answers_objects": [
+            {
+                "spans": ["Arthur's Magazine"]
+            }
+        ],
         "type": "comparison",
         "level": "medium",
         "contexts": [
@@ -20,7 +25,7 @@
                     "First for Women is a magazine founded in 1989.",
                     "It focuses on women's lifestyle content."
                 ],
-                "is_supporting": true
+                "is_supporting": false
             }
         ],
         "supporting_facts": {
@@ -32,6 +37,11 @@
         "id": "5a8b57f25542990a00fa4d62",
         "question": "The Oberoi family is part of a hotel company that has a head office in what city?",
         "answer": "Delhi",
+        "answers_objects": [
+            {
+                "spans": ["Delhi"]
+            }
+        ],
         "type": "bridge",
         "level": "medium",
         "contexts": [
@@ -61,6 +71,11 @@
         "id": "5ae0662e554299140046f858",
         "question": "Musician and satirist Allie Goertz wrote a song about the \"The Simpsons\" character Milhouse, who Matt Groening named after who?",
         "answer": "President Richard Nixon",
+        "answers_objects": [
+            {
+                "spans": ["President Richard Nixon"]
+            }
+        ],
         "type": "bridge",
         "level": "hard",
         "contexts": [
@@ -78,7 +93,7 @@
                     "Allie Goertz is a musician and satirist.",
                     "She wrote a song about the character Milhouse."
                 ],
-                "is_supporting": true
+                "is_supporting": false
             }
         ],
         "supporting_facts": {
@@ -90,6 +105,11 @@
         "id": "5a7f6b1e55429914007dadf5",
         "question": "What nationality was the person who founded the noble family of which Elizabeth, Duchess of Hohenberg was a member by marriage?",
         "answer": "Austrian",
+        "answers_objects": [
+            {
+                "spans": ["Austrian"]
+            }
+        ],
         "type": "bridge",
         "level": "hard",
         "contexts": [
@@ -107,7 +127,7 @@
                     "The House of Habsburg-Lorraine is an Austrian noble family.",
                     "It was founded by members of the Austrian nobility."
                 ],
-                "is_supporting": true
+                "is_supporting": false
             }
         ],
         "supporting_facts": {
@@ -119,6 +139,11 @@
         "id": "5a7c3b6955429911007a25a0",
         "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
         "answer": "Chief of Protocol",
+        "answers_objects": [
+            {
+                "spans": ["Chief of Protocol"]
+            }
+        ],
         "type": "bridge",
         "level": "hard",
         "contexts": [
@@ -136,7 +161,7 @@
                     "Kiss and Tell is a 1945 film starring Shirley Temple.",
                     "In this film, she played the role of Corliss Archer."
                 ],
-                "is_supporting": true
+                "is_supporting": false
             }
         ],
         "supporting_facts": {
