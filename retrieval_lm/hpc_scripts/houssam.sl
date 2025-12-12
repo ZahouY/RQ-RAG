@@ -23,13 +23,13 @@ python ./inference.py \
 "data/demo_popqa.jsonl" \
 --output_path \
 "../output/demo_popqa" \
-  --ndocs 3 \
-  --use_search_engine \
-  --use_hf \
-  --task popqa_longtail_w_gs \
-  --tree_decode \
-  --oracle \
-  --max_depth 2 \
-  --search_engine_type duckduckgo \
-  --expand_on_tokens [S_Rewritten_Query] [S_Decomposed_Query] [S_Disambiguated_Query] [A_Response] \
-  --max_new_tokens 128
+--ndocs 3 \
+--use_search_engine \
+--use_hf \
+--task popqa_longtail_w_gs \
+--tree_decode \
+--oracle \
+--max_depth 2 \
+--search_engine_type duckduckgo \
+--expand_on_tokens [S_Rewritten_Query] [S_Decomposed_Query] [S_Disambiguated_Query] [A_Response] \
+--max_new_tokens 128
