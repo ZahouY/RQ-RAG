@@ -6,6 +6,7 @@
 #SBATCH --time=00:10:00
 #SBATCH --mem=24G
 #SBATCH --account=m25206
+#SBATCH --job-name=rqrag
 
 source ~/rqrag/bin/activate
 
