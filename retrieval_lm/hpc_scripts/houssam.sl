@@ -20,7 +20,7 @@ python ./inference.py \
 --model_name_or_path \
 "../models/rq_rag_llama2_7B" \
 --input_file \
-"data/demo_popqa.jsonl" \
+"HOME/RQ-RAG/retrieval_lm/data/demo_popqa.jsonl" \
 --output_path \
 "../output/demo_popqa" \
 --ndocs 3 \
@@ -31,5 +31,9 @@ python ./inference.py \
 --oracle \
 --max_depth 2 \
 --search_engine_type duckduckgo \
---expand_on_tokens [S_Rewritten_Query] [S_Decomposed_Query] [S_Disambiguated_Query] [A_Response] \
+--expand_on_tokens \
+"[S_Rewritten_Query]" \
+"[S_Decomposed_Query]" \
+"[S_Disambiguated_Query]" \
+"[A_Response]" \
 --max_new_tokens 128
