@@ -22,7 +22,7 @@ python ./inference.py \
 --input_file \
 "data/hotpotqa_test.json" \
 --output_path \
-"../output/demo_popqa" \
+"../output/houssam" \
 --ndocs 3 \
 --use_search_engine \
 --use_hf \

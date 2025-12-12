@@ -21,24 +21,19 @@ python ./inference.py \
 "../models/rq_rag_llama2_7B" \
 --input_file \
 "data/hotpotqa_test.json" \
---max_new_tokens \
-100 \
 --output_path \
 "../output/hotpotqa" \
---ndocs \
-3 \
+--ndocs 3 \
 --use_search_engine \
 --use_hf \
---task \
-popqa_longtail_w_gs \
+--task hotpotqa \
 --tree_decode \
 --oracle \
---max_depth \
-2 \
---search_engine_type \
-"duckduckgo" \
+--max_depth 2 \
+--search_engine_type "duckduckgo" \
 --expand_on_tokens \
 "[S_Rewritten_Query]" \
 "[S_Decomposed_Query]" \
 "[S_Disambiguated_Query]" \
-"[A_Response]"
+"[A_Response]" \
+--max_new_tokens 128
