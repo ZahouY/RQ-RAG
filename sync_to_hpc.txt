@@ -1,0 +1,6 @@
+scp -r /home/zahou/Bureau/DLA/RQ-RAG yaszahou@juliet.mesonet.fr:~/
+
+
+
+
+scp yaszahou@juliet.mesonet.fr:~/RQ-RAG/output/houssam/final_results.json .

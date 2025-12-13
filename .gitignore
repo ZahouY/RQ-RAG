@@ -2,3 +2,4 @@
 models/
 __pycache__/
 visu/
+final_results.json
