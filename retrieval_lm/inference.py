@@ -209,6 +209,7 @@ def generate_tree_of_thoughts(model, tokenizer, initial_prompts, raw_datas, spec
         for current_path in final_outputs:
             pred += current_path["final_answer"] + "\n"
     elif args.selection_strategy == "majority_vote":
+        cluster_info = []
         if not final_outputs:
             pred = ""
         else:
@@ -246,7 +247,20 @@ def generate_tree_of_thoughts(model, tokenizer, initial_prompts, raw_datas, spec
                 best_idx = min(largest_group, key=lambda idx: len(answers[idx]))
                 pred = answers[best_idx]
 
+                # 5. Save cluster info for visualization
+                for group in groups:
+                    rep_idx = min(group, key=lambda idx: len(answers[idx]))
+                    cluster_info.append({
+                        "representative": answers[rep_idx],
+                        "size": len(group),
+                        "answers": [answers[i] for i in group],
+                        "is_winner": (group == largest_group)
+                    })
+
     # support the same api, view it as batch encoding
+    if final_outputs and 'cluster_info' in locals():
+        final_outputs[0]["cluster_info"] = cluster_info
+
     return [pred], [final_outputs]
 
 def main():
