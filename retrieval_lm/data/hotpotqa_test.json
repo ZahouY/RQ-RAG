@@ -1,3 +1,6 @@
 [
-{"id": "demo_1", "dataset": "demo_popqa", "question": "What is the capital of France?", "answers": ["Paris"]}
+{"id": "demo_1", "dataset": "demo_popqa", "question": "What is the capital of France?", "answers": ["Paris"]},
+{"id": "demo_2", "dataset": "demo_popqa", "question": "What kind of university is the school where Rey Ramsey was educated an instance of?", "answers": ["Land-grant University"]},
+{"id": "demo_3", "dataset": "demo_popqa", "question": "When are the 2024 NBA playoffs scheduled to begin?", "answers": ["April 20 2024"]},
+{"id": "demo_4", "dataset": "demo_popqa", "question": "Most total goals in a premier league season?", "answers": ["34","106"]}
 ]
