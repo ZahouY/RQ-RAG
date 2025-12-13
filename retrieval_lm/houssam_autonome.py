@@ -235,16 +235,12 @@ def load_model_and_tokenizer():
     hf_token = os.environ.get("HUGGINGFACEHUB_API_TOKEN", None)
 
     tokenizer = AutoTokenizer.from_pretrained(
-        model_name,
-        token=hf_token,
-        use_auth_token=True if hf_token is not None else False,
+        "../models/rq_rag_llama2_7B",
     )
 
     model = AutoModelForCausalLM.from_pretrained(
-        model_name,
+        "../models/rq_rag_llama2_7B",
         device_map="auto",
-        token=hf_token,
-        use_auth_token=True if hf_token is not None else False,
     )
 
     if tokenizer.pad_token_id is None:
