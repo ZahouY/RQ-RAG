@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH -p mesonet
 #SBATCH -N 1
-#SBATCH -c 16
+#SBATCH -c 32
 #SBATCH --gres=gpu:1
 #SBATCH --time=00:10:00
-#SBATCH --mem=24G
+#SBATCH --mem=32G
 #SBATCH --account=m25206
 #SBATCH --job-name=rqrag
 
@@ -14,7 +14,7 @@ cd retrieval_lm
 
 
 # export PYTHONPATH="$(pwd):$PYTHONPATH"
-
+# --pruning_early_stopping necessite --selection_strategy majority_vote
 
 python ./inference.py \
 --model_name_or_path \
@@ -36,4 +36,7 @@ python ./inference.py \
 "[S_Disambiguated_Query]" \
 "[A_Response]" \
 --max_new_tokens 128 \
---selection_strategy majority_vote
+--selection_strategy majority_vote \
+--pruning_sanity_check \ 
+--pruning_early_stopping \
+--early_stopping_threshold 3

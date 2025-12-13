@@ -129,6 +129,27 @@ def generate_tree_of_thoughts(model, tokenizer, initial_prompts, raw_datas, spec
     final_outputs = []
 
     while paths:
+        # Pruning: Early Stopping
+        if args.pruning_early_stopping and args.selection_strategy == "majority_vote":
+             if len(final_outputs) >= args.early_stopping_threshold:
+                current_answers = [p["final_answer"] for p in final_outputs]
+                if current_answers:
+                    groups = []
+                    for ans in current_answers:
+                        added = False
+                        for group in groups:
+                            if qa_f1_score(ans, group[0]) > 0.8:
+                                group.append(ans)
+                                added = True
+                                break
+                        if not added:
+                            groups.append([ans])
+                    
+                    if groups:
+                        largest_group_size = max(len(g) for g in groups)
+                        if largest_group_size >= args.early_stopping_threshold:
+                            break
+
         current_path = paths.pop(0)
 
         if current_path['done']:
@@ -188,6 +209,19 @@ def generate_tree_of_thoughts(model, tokenizer, initial_prompts, raw_datas, spec
                     top_indices = [None] # use search engine, do not have this
                     evidences = search_engine_api(query_for_search)
                     evidences_list = format_evidences([evidences])
+
+                # Pruning: Sanity Check
+                if args.pruning_sanity_check:
+                    is_empty = False
+                    if not evidences: 
+                        is_empty = True
+                    elif isinstance(evidences, list) and len(evidences) == 0:
+                        is_empty = True
+                    elif isinstance(evidences_list, list) and len(evidences_list) > 0 and not evidences_list[0].strip():
+                        is_empty = True
+                    
+                    if is_empty:
+                        continue
 
                 new_path = {
                     'prompt': decoded_output + "[R_Evidences]" + evidences_list[0] + "[/R_Evidences]",
@@ -292,6 +326,9 @@ def main():
     parser.add_argument('--max_depth', type=int, default=2, help="pratically usefull when inference 2wikihop, may retrieve up to 4 times")
     parser.add_argument('--oracle', default=False, action="store_true", help="it means that we are testing the upperbound of the system, where we assume all candidates are valid.")
     parser.add_argument('--selection_strategy', type=str, default="oracle", choices=["oracle", "majority_vote"], help="Strategy to select the final answer from candidates.")
+    parser.add_argument('--pruning_sanity_check', default=False, action="store_true", help="Enable pruning of branches with empty search results.")
+    parser.add_argument('--pruning_early_stopping', default=False, action="store_true", help="Enable early stopping if consensus is reached.")
+    parser.add_argument('--early_stopping_threshold', type=int, default=3, help="Threshold for early stopping consensus.")
     parser.add_argument('--search_engine_type', type=str, required=True, default=None)
     parser.add_argument('--rapidapi_name', type=str, default="one", help="custom rapid api ")
     parser.add_argument('--expand_on_tokens', nargs="+", help="do not want to expand on all, we have three different special tokens")
