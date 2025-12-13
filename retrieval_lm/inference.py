@@ -167,9 +167,14 @@ def generate_tree_of_thoughts(model, tokenizer, initial_prompts, raw_datas, spec
 
             if special_token != "[A_Response]":
                 # when not generating the final answer, we adjust the temp to increase diversity
-                outputs = model.generate(**inputs, return_dict_in_generate=True, temperature=1.0)
+                outputs = model.generate(**inputs, return_dict_in_generate=True, output_scores=True, temperature=1.0)
             else:
-                outputs = model.generate(**inputs, return_dict_in_generate=True, do_sample=False)
+                outputs = model.generate(**inputs, return_dict_in_generate=True, output_scores=True, do_sample=False)
+
+            transition_scores = model.compute_transition_scores(
+                outputs.sequences, outputs.scores, normalize_logits=True
+            )
+            generated_tokens_score = torch.mean(transition_scores[0]).item()
 
             decoded_output = tokenizer.batch_decode(outputs.sequences, skip_special_tokens=False)[0].replace("<s> ", "<s>")
 
@@ -188,6 +193,7 @@ def generate_tree_of_thoughts(model, tokenizer, initial_prompts, raw_datas, spec
                     'done': True,
                     'final_answer': result,
                     'retrieved_index': current_path['retrieved_index'],
+                    'score': generated_tokens_score,
                 }
             else:
                 # get the query and ask search_engine
@@ -233,6 +239,7 @@ def generate_tree_of_thoughts(model, tokenizer, initial_prompts, raw_datas, spec
                     'cur_query': query_for_search,
                     'cur_evidence': evidences_list[0],
                     'retrieved_index': current_path['retrieved_index'] + top_indices,
+                    'score': generated_tokens_score,
                 }
 
             paths.append(new_path)
@@ -251,6 +258,7 @@ def generate_tree_of_thoughts(model, tokenizer, initial_prompts, raw_datas, spec
         else:
             # 1. Get all answers
             answers = [path["final_answer"] for path in final_outputs]
+            scores = [path.get("score", -999.0) for path in final_outputs]
             
             # 2. Cluster answers based on F1 score
             groups = []
@@ -286,16 +294,41 @@ def generate_tree_of_thoughts(model, tokenizer, initial_prompts, raw_datas, spec
                 # 5. Save cluster info for visualization
                 for group in groups:
                     rep_idx = min(group, key=lambda idx: len(answers[idx]))
+                    group_scores = [scores[i] for i in group]
+                    avg_score = sum(group_scores) / len(group_scores) if group_scores else -999.0
+                    
                     cluster_info.append({
                         "representative": answers[rep_idx],
                         "size": len(group),
                         "answers": [answers[i] for i in group],
+                        "scores": group_scores,
+                        "avg_score": avg_score,
                         "is_winner": (group == largest_group)
                     })
+    elif args.selection_strategy == "confidence_score":
+        selection_info = []
+        if not final_outputs:
+            pred = ""
+        else:
+            # Select the path with the highest confidence score
+            best_path = max(final_outputs, key=lambda x: x.get('score', -float('inf')))
+            pred = best_path['final_answer']
+            
+            # Sort for visualization
+            sorted_paths = sorted(final_outputs, key=lambda x: x.get('score', -float('inf')), reverse=True)
+            for p in sorted_paths:
+                selection_info.append({
+                    "answer": p['final_answer'],
+                    "score": p.get('score', -float('inf')),
+                    "is_selected": (p == best_path)
+                })
 
     # support the same api, view it as batch encoding
-    if final_outputs and 'cluster_info' in locals():
-        final_outputs[0]["cluster_info"] = cluster_info
+    if final_outputs:
+        if 'cluster_info' in locals():
+            final_outputs[0]["cluster_info"] = cluster_info
+        if 'selection_info' in locals():
+            final_outputs[0]["selection_info"] = selection_info
 
     return [pred], [final_outputs]
 
@@ -327,7 +360,7 @@ def main():
     parser.add_argument('--tree_decode', default=False, action="store_true")
     parser.add_argument('--max_depth', type=int, default=2, help="pratically usefull when inference 2wikihop, may retrieve up to 4 times")
     parser.add_argument('--oracle', default=False, action="store_true", help="it means that we are testing the upperbound of the system, where we assume all candidates are valid.")
-    parser.add_argument('--selection_strategy', type=str, default="oracle", choices=["oracle", "majority_vote"], help="Strategy to select the final answer from candidates.")
+    parser.add_argument('--selection_strategy', type=str, default="oracle", choices=["oracle", "majority_vote", "confidence_score"], help="Strategy to select the final answer from candidates.")
     parser.add_argument('--pruning_sanity_check', default=False, action="store_true", help="Enable pruning of branches with empty search results.")
     parser.add_argument('--pruning_early_stopping', default=False, action="store_true", help="Enable early stopping if consensus is reached.")
     parser.add_argument('--early_stopping_threshold', type=int, default=3, help="Threshold for early stopping consensus.")
