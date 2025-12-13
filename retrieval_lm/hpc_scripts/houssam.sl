@@ -28,7 +28,6 @@ python ./inference.py \
 --use_hf \
 --task popqa_longtail_w_gs \
 --tree_decode \
---oracle \
 --max_depth 2 \
 --search_engine_type duckduckgo \
 --expand_on_tokens \
@@ -36,4 +35,5 @@ python ./inference.py \
 "[S_Decomposed_Query]" \
 "[S_Disambiguated_Query]" \
 "[A_Response]" \
---max_new_tokens 128
+--max_new_tokens 128 \
+--selection_strategy majority_vote

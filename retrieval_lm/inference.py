@@ -24,7 +24,7 @@ import string
 import sys
 import time
 from utils import load_jsonlines, load_sag_special_tokens, preprocess_eval_data
-from metrics import match, accuracy, match_batch, calculate_retrieval_em_f1
+from metrics import match, accuracy, match_batch, calculate_retrieval_em_f1, qa_f1_score, normalize_answer
 import datasets
 
 # for adding the package data_creation_sag
@@ -201,13 +201,50 @@ def generate_tree_of_thoughts(model, tokenizer, initial_prompts, raw_datas, spec
 
             paths.append(new_path)
 
-    if args.oracle:
+    if args.oracle or args.selection_strategy == "oracle":
         # it means that we concat all the anwers as the final answer
         # our logic here is that , among all the candidates, if there exist the answer, then it is correct
         # then afterwards, we have to find how to aggregate the answer
         pred = ""
         for current_path in final_outputs:
             pred += current_path["final_answer"] + "\n"
+    elif args.selection_strategy == "majority_vote":
+        if not final_outputs:
+            pred = ""
+        else:
+            # 1. Get all answers
+            answers = [path["final_answer"] for path in final_outputs]
+            
+            # 2. Cluster answers based on F1 score
+            groups = []
+            for i, ans in enumerate(answers):
+                added = False
+                for group in groups:
+                    # Compare with the representative of the group
+                    representative_idx = group[0]
+                    representative_ans = answers[representative_idx]
+                    
+                    # Calculate F1 score
+                    f1 = qa_f1_score(ans, representative_ans)
+                    
+                    # Threshold for similarity
+                    if f1 > 0.5: 
+                        group.append(i)
+                        added = True
+                        break
+                
+                if not added:
+                    groups.append([i])
+            
+            # 3. Find the largest group
+            if not groups:
+                pred = ""
+            else:
+                largest_group = max(groups, key=len)
+                
+                # 4. Select representative answer (shortest one in the group)
+                best_idx = min(largest_group, key=lambda idx: len(answers[idx]))
+                pred = answers[best_idx]
 
     # support the same api, view it as batch encoding
     return [pred], [final_outputs]
@@ -240,6 +277,7 @@ def main():
     parser.add_argument('--tree_decode', default=False, action="store_true")
     parser.add_argument('--max_depth', type=int, default=2, help="pratically usefull when inference 2wikihop, may retrieve up to 4 times")
     parser.add_argument('--oracle', default=False, action="store_true", help="it means that we are testing the upperbound of the system, where we assume all candidates are valid.")
+    parser.add_argument('--selection_strategy', type=str, default="oracle", choices=["oracle", "majority_vote"], help="Strategy to select the final answer from candidates.")
     parser.add_argument('--search_engine_type', type=str, required=True, default=None)
     parser.add_argument('--rapidapi_name', type=str, default="one", help="custom rapid api ")
     parser.add_argument('--expand_on_tokens', nargs="+", help="do not want to expand on all, we have three different special tokens")
