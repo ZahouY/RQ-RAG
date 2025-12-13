@@ -37,6 +37,6 @@ python ./inference.py \
 "[A_Response]" \
 --max_new_tokens 128 \
 --selection_strategy majority_vote \
---pruning_sanity_check \ 
+--pruning_sanity_check \
 --pruning_early_stopping \
 --early_stopping_threshold 3

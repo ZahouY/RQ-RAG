@@ -217,6 +217,8 @@ def generate_tree_of_thoughts(model, tokenizer, initial_prompts, raw_datas, spec
                         is_empty = True
                     elif isinstance(evidences, list) and len(evidences) == 0:
                         is_empty = True
+                    elif isinstance(evidences, list) and len(evidences) == 1 and evidences[0].get("title") == "dummy":
+                        is_empty = True
                     elif isinstance(evidences_list, list) and len(evidences_list) > 0 and not evidences_list[0].strip():
                         is_empty = True
                     
