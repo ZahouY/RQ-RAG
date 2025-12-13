@@ -1,6 +1,7 @@
 # 📝 Résumé des modifications - houssam_autonome.py
 
 ## 🎯 Objectif
+
 Permettre au modèle RQ-RAG de **générer autonomously les tokens spéciaux** et afficher les étapes détaillées avant la réponse finale.
 
 ---
@@ -8,23 +9,28 @@ Permettre au modèle RQ-RAG de **générer autonomously les tokens spéciaux** e
 ## ✨ Principales améliorations
 
 ### 1️⃣ **Ajout des imports nécessaires**
+
 ```python
 from typing import List, Dict, Any
 from transformers import StoppingCriteria, StoppingCriteriaList
 ```
+
 - Import des types pour une meilleure documentation du code
 - Import du critère d'arrêt pour contrôler la génération
 
 ### 2️⃣ **Nouvelle classe EOSStoppingCriteria** (lignes 22-31)
+
 ```python
 class EOSStoppingCriteria(StoppingCriteria):
     """Arrête la génération quand [EOS] est produit."""
 ```
+
 - Permet d'arrêter la génération dès que le token `[EOS]` est produit
 - Évite de générer inutilement trop de tokens
 - Optimise le processus de génération
 
 ### 3️⃣ **Amélioration de load_model_and_tokenizer()** (lignes 305-347)
+
 ```python
 # Ajouter les tokens spéciaux au vocabulaire
 special_tokens = {
@@ -43,6 +49,7 @@ model.resize_token_embeddings(len(tokenizer))
 ```
 
 **Changements clés:**
+
 - ✅ **Enregistrement des tokens spéciaux** dans le tokenizer
 - ✅ **Redimensionnement des embeddings** du modèle
 - ✅ **Affichage du nombre de tokens** du vocabulaire
@@ -51,20 +58,23 @@ model.resize_token_embeddings(len(tokenizer))
 ### 4️⃣ **Refonte complète de rqrag_agent_autonome()** (lignes 126-289)
 
 #### Problèmes corrigés :
+
 ❌ **Avant:**
+
 - Extraction des tokens sur la sortie complète `decoded_output`
 - Pas de critère d'arrêt robuste
 - Tokens spéciaux non enregistrés dans le vocab
 - Peu de retour visuel sur le processus
 
 ✅ **Après:**
+
 - **Extraction uniquement des nouveaux tokens générés**
   ```python
   new_tokens = output_ids[0][input_ids.shape[1]:]
   generated_text = tokenizer.decode(new_tokens, skip_special_tokens=False)
   ```
-  
 - **Affichage détaillé de chaque étape**
+
   ```
   📍 ÉTAPE 1/4
   🔄 Génération en cours...
@@ -76,6 +86,7 @@ model.resize_token_embeddings(len(tokenizer))
   ```
 
 - **Messages de feedback intelligents**
+
   - Détection des boucles infinies
   - Rejet des réponses sans recherche préalable
   - Retour utilisateur quand rien n'est détecté
@@ -90,6 +101,7 @@ model.resize_token_embeddings(len(tokenizer))
   ```
 
 #### Nouveaux symboles visuels pour clarté :
+
 - 🤖 = Agent/Modèle
 - 🔄 = Génération
 - 📝 = Sortie texte
@@ -104,16 +116,18 @@ model.resize_token_embeddings(len(tokenizer))
 ### 5️⃣ **Refonte de la fonction main()** (lignes 390-467)
 
 **Améliorations:**
+
 - ✅ Affichage du démarrage
 - ✅ Compteur de questions
 - ✅ **Récapitulatif détaillé pour chaque question:**
+
   ```
   Question X/N
   ❓ Question: ...
   📈 Statut: A_Response
   ⏱️ Étapes effectuées: 3/4
   🔎 Actions exécutées: 3
-  
+
   📍 Détail des actions:
     1. [RÉÉCRITURE] query1
        → 3 résultat(s)
@@ -121,7 +135,7 @@ model.resize_token_embeddings(len(tokenizer))
        → 2 résultat(s)
     3. [RÉÉCRITURE] query3
        → 3 résultat(s)
-  
+
   ✅ RÉPONSE FINALE:
      ...
   ```
@@ -133,6 +147,7 @@ model.resize_token_embeddings(len(tokenizer))
   ```
 
 ### 6️⃣ **Augmentation des max_new_tokens_step**
+
 - De `128` à `200` tokens par étape
 - Permet plus d'espace pour la génération des tokens spéciaux
 - Moins de risque de troncature
@@ -142,16 +157,19 @@ model.resize_token_embeddings(len(tokenizer))
 ## 🚀 Comment utiliser le code modifié
 
 ### Test simple avec une seule question:
+
 ```bash
 python houssam_autonome.py --question "What is the capital of France?"
 ```
 
 ### Test avec un fichier de questions:
+
 ```bash
 python houssam_autonome.py --questions_file questions.txt
 ```
 
 ### Paramètres disponibles:
+
 ```bash
 python houssam_autonome.py \
   --question "Your question here" \
@@ -165,6 +183,7 @@ python houssam_autonome.py \
 ## 📊 Sortie attendue
 
 Exemple pour une question:
+
 ```
 ==================================================
 🤖 QUESTION: Who won the 2023 World Cup?
@@ -219,16 +238,19 @@ Exemple pour une question:
 ## 🔧 Dépannage
 
 ### Si les tokens spéciaux ne sont pas générés :
+
 1. Vérifiez que le modèle a bien été entraîné sur ces tokens
 2. Augmentez `max_new_tokens_step` (ex: 250-300)
 3. Vérifiez que les tokens ont bien été ajoutés au vocabulaire (regarder le log "✅ Tokens spéciaux ajoutés")
 
 ### Si aucune réponse n'est générée :
+
 1. Vérifiez les logs d'erreur de DuckDuckGo
 2. Augmentez `max_steps`
 3. Vérifiez que le modèle génère bien les tokens `[S_...]`
 
 ### Si le modèle boucle :
+
 - Le code détecte automatiquement et arrête les boucles infinies
 - Augmentez `max_steps` si vous voulez plus d'itérations
 

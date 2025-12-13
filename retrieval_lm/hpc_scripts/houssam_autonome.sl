@@ -19,8 +19,8 @@ export HUGGINGFACEHUB_API_TOKEN="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"
 # Exemple 1 : question unique passée en argument
 python ./houssam_autonome.py \
   --question "In which country is the university where Michelle Obama studied law located?" \
-  --max_steps 4 \
-  --max_new_tokens_step 128 \
+  --max_steps 5 \
+  --max_new_tokens_step 350 \
   --max_web_results 3
 
 # Exemple 2 (en commentaire) : lire un fichier de questions
