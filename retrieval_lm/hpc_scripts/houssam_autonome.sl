@@ -17,7 +17,7 @@ cd retrieval_lm
 export HUGGINGFACEHUB_API_TOKEN="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"
 
 # Exemple 1 : question unique passée en argument
-python rqrag_agent_autonome.py \
+python ./houssam_autonome.py \
   --question "In which country is the university where Michelle Obama studied law located?" \
   --max_steps 4 \
   --max_new_tokens_step 128 \

@@ -81,6 +81,8 @@ You can use the following actions in your answer:
 - [S_Disambiguated_Query] ... [EOS]   to disambiguate an unclear question
 - [A_Response] ... [EOS]              to give the final answer
 
+You are NOT allowed to use [A_Response] before you have used at least one [S...] action.
+
 Each time you use an [S_...] token, you MUST:
 1) Write ONLY the query or sub-question text.
 2) Then output [EOS].
@@ -153,16 +155,20 @@ def rqrag_agent_autonome(
         )
 
         # 1) Chercher une réponse finale [A_Response]
-        ans_matches = re.findall(
-            r"\[A_Response\](.*?)\[EOS\]",
-            decoded_output,
-            flags=re.DOTALL,
-        )
+        ans_matches = re.findall(r"\[A_Response\](.*?)\[EOS\]", decoded_output, flags=re.DOTALL)
         if ans_matches:
             final_answer = ans_matches[-1].strip()
+            if len(actions_log) == 0:
+                print("⚠️ [A_Response] détecté mais aucune action [S_...] utilisée -> on continue, réponse refusée.")
+                # Tu peux par exemple ajouter un message de feedback et relancer
+                history_text = (
+                    decoded_output
+                    + "\n<|system|>\nYou answered without using any [S_...] action. "
+                    "You MUST first perform at least one search or decomposition step.\n</s>\n"
+                )
+                continue
+
             print("🟢 [A_Response] détecté, arrêt.")
-            print("\n--- FINAL ANSWER ---")
-            print(final_answer)
             return {
                 "answer": final_answer,
                 "full_text": decoded_output,
