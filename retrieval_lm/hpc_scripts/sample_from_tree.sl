@@ -16,7 +16,7 @@ cd retrieval_lm
 # export PYTHONPATH="$(pwd):$PYTHONPATH"
 # --pruning_early_stopping necessite --selection_strategy majority_vote
 
-python ./output/inference.py \
+python output/sammple_from_tree.py \
 --model_name_or_path \
 "../models/rq_rag_llama2_7B" \
 --original_data \
