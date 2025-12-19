@@ -14,10 +14,8 @@ source ~/rqrag/bin/activate
 
 cd retrieval_lm
 
-export HUGGINGFACEHUB_API_TOKEN="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"
-
 # Exemple 1 : question unique passée en argument
-python ./houssam_autonome.py \
+python ./inference_autonome.py \
   --question "In which country is the university where Michelle Obama studied law located?" \
   --max_steps 5 \
   --max_new_tokens_step 350 \

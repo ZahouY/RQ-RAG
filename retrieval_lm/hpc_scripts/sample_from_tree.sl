@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH -p mesonet
 #SBATCH -N 1
-#SBATCH -c 32
+#SBATCH -c 16
 #SBATCH --gres=gpu:1
 #SBATCH --time=00:10:00
-#SBATCH --mem=32G
+#SBATCH --mem=24G
 #SBATCH --account=m25206
 #SBATCH --job-name=rqrag
 
@@ -22,7 +22,7 @@ python output/sammple_from_tree.py \
 --original_data \
 "data/hotpotqa_test.json" \
 --run_name \
-"../output/houssam" \
+"../output/inference" \
 --task popqa_longtail_w_gs \
 --calc_depth \
 1 \
