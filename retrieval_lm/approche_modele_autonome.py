@@ -40,7 +40,7 @@ def web_search(query: str, max_results: int = 3):
     Si DuckDuckGo n'est pas dispo, renvoie une liste vide.
     """
     if not DUCK_AVAILABLE:
-        print("⚠️ duckduckgo_search non disponible, pas de recherche web.")
+        print("duckduckgo_search non disponible, pas de recherche web.")
         return []
 
     results = []
@@ -54,7 +54,7 @@ def web_search(query: str, max_results: int = 3):
             ):
                 results.append(r)
     except Exception as e:
-        print(f"❌ Erreur DuckDuckGo pour la requête '{query}': {e}")
+        print(f"Erreur DuckDuckGo pour la requête '{query}': {e}")
         return []
 
     snippets = []
@@ -142,12 +142,12 @@ def rqrag_agent_autonome(
     full_conversation = []
 
     print("\n" + "="*50)
-    print(f"🤖 QUESTION: {question}")
+    print(f"QUESTION: {question}")
     print("="*50)
 
     for step in range(max_steps):
         print(f"\n{'─'*50}")
-        print(f"📍 ÉTAPE {step+1}/{max_steps}")
+        print(f"ÉTAPE {step+1}/{max_steps}")
         print(f"{'─'*50}")
 
         # Tokenize l'historique
@@ -194,20 +194,20 @@ def rqrag_agent_autonome(
             
             # Vérifier que le modèle a utilisé au moins une action [S_...]
             if len(actions_log) == 0:
-                print("\n⚠️ ALERTE: [A_Response] détecté SANS actions préalables [S_...]")
-                print("🔁 Rejet de la réponse. Le modèle doit d'abord faire une recherche/décomposition.")
+                print("\n ALERTE: [A_Response] détecté SANS actions préalables [S_...]")
+                print(" Rejet de la réponse. Le modèle doit d'abord faire une recherche/décomposition.")
                 
                 # Ajouter un feedback au modèle
                 history_text = (
                     history_text + generated_text +
-                    "\n<|system|>\n⚠️ ERROR: You must use at least one [S_...] action before [A_Response]!\n"
+                    "\n<|system|>\n ERROR: You must use at least one [S_...] action before [A_Response]!\n"
                     "Please start by rewriting the question or decomposing it.\n</s>\n"
                     "<|assistant|>\n"
                 )
                 continue
             
-            print(f"\n✅ [A_Response] DÉTECTÉ après {len(actions_log)} action(s)")
-            print(f"📌 RÉPONSE FINALE: {final_answer}\n")
+            print(f"\n [A_Response] DÉTECTÉ après {len(actions_log)} action(s)")
+            print(f" RÉPONSE FINALE: {final_answer}\n")
             
             return {
                 "answer": final_answer,
@@ -230,24 +230,24 @@ def rqrag_agent_autonome(
 
             # Vérifier si on boucle
             if (last_action, last_query) in seen_actions:
-                print(f"\n⚠️ BOUCLE DÉTECTÉE: Même action '{last_action}' avec même query")
-                print("❌ Arrêt pour éviter une boucle infinie.")
+                print(f"\n BOUCLE DÉTECTÉE: Même action '{last_action}' avec même query")
+                print(" Arrêt pour éviter une boucle infinie.")
                 break
 
             seen_actions.add((last_action, last_query))
 
             # Afficher l'action
             action_display = {
-                "S_Rewritten_Query": "� RÉÉCRITURE DE REQUÊTE",
-                "S_Decomposed_Query": "🔀 DÉCOMPOSITION",
-                "S_Disambiguated_Query": "❓ DÉSAMBIGUÏSATION",
+                "S_Rewritten_Query": " RÉÉCRITURE DE REQUÊTE",
+                "S_Decomposed_Query": " DÉCOMPOSITION",
+                "S_Disambiguated_Query": " DÉSAMBIGUÏSATION",
             }
             
             print(f"\n{action_display.get(last_action, last_action)}")
             print(f"  → Requête: {last_query}")
 
             # Recherche web
-            print("  🔍 Recherche web...")
+            print("  Recherche web...")
             snippets = web_search(last_query, max_results=max_web_results)
             
             if snippets:
@@ -274,13 +274,13 @@ def rqrag_agent_autonome(
             continue
 
         # ====== 3) Rien détecté → on arrête =====
-        print("\n⚠️ Aucun token spécial [S_...] ou [A_Response] détecté.")
-        print("❌ Arrêt de la génération.")
+        print("\n Aucun token spécial [S_...] ou [A_Response] détecté.")
+        print(" Arrêt de la génération.")
         break
 
     # Fin sans réponse
     print("\n" + "="*50)
-    print("❌ IMPOSSIBLE DE GÉNÉRER UNE RÉPONSE")
+    print(" IMPOSSIBLE DE GÉNÉRER UNE RÉPONSE")
     print(f"(Arrêt après {len(actions_log)} action(s), {step+1} étape(s))")
     print("="*50 + "\n")
     
@@ -332,8 +332,8 @@ def load_model_and_tokenizer():
         tokenizer.pad_token_id = tokenizer.eos_token_id
 
     model.eval()
-    print("✅ Modèle chargé :", model_name)
-    print(f"✅ Tokens spéciaux ajoutés. Vocabulaire: {len(tokenizer)} tokens")
+    print(" Modèle chargé :", model_name)
+    print(f" Tokens spéciaux ajoutés. Vocabulaire: {len(tokenizer)} tokens")
     
     return model, tokenizer
 
@@ -382,11 +382,11 @@ def main():
     args = parse_args()
 
     if args.question is None and args.questions_file is None:
-        print("❌ Erreur: Spécifie soit --question, soit --questions_file.")
+        print(" Erreur: Spécifie soit --question, soit --questions_file.")
         return
 
     print("\n" + "="*60)
-    print("🚀 RQ-RAG AGENT AUTONOME - DÉMARRAGE")
+    print(" RQ-RAG AGENT AUTONOME - DÉMARRAGE")
     print("="*60 + "\n")
 
     model, tokenizer = load_model_and_tokenizer()
@@ -402,7 +402,7 @@ def main():
                 if line:
                     questions.append(line)
 
-    print(f"📋 {len(questions)} question(s) à traiter\n")
+    print(f" {len(questions)} question(s) à traiter\n")
 
     results_summary = []
 
@@ -422,26 +422,26 @@ def main():
         
         # Afficher le récapitulatif pour cette question
         print("\n" + "─"*60)
-        print("📊 RÉCAPITULATIF DE LA QUESTION")
+        print(" RÉCAPITULATIF DE LA QUESTION")
         print("─"*60)
-        print(f"\n❓ Question: {q}\n")
+        print(f"\n Question: {q}\n")
         
-        print(f"📈 Statut: {res['stopped_by']}")
-        print(f"⏱️ Étapes effectuées: {res['num_steps']}/{args.max_steps}")
-        print(f"🔎 Actions exécutées: {len(res['actions'])}")
+        print(f" Statut: {res['stopped_by']}")
+        print(f" Étapes effectuées: {res['num_steps']}/{args.max_steps}")
+        print(f" Actions exécutées: {len(res['actions'])}")
         
         if res['actions']:
-            print("\n📍 Détail des actions:")
+            print("\n Détail des actions:")
             for i, action in enumerate(res['actions'], 1):
                 action_name = action['action'].replace('S_', '').replace('_', ' ')
                 print(f"  {i}. [{action_name}] {action['query']}")
                 print(f"     → {len(action['snippets'])} résultat(s)")
         
         if res['answer']:
-            print(f"\n✅ RÉPONSE FINALE:")
+            print(f"\n RÉPONSE FINALE:")
             print(f"   {res['answer'][:200]}{'...' if len(res['answer']) > 200 else ''}\n")
         else:
-            print(f"\n❌ PAS DE RÉPONSE GÉNÉRÉE\n")
+            print(f"\n PAS DE RÉPONSE GÉNÉRÉE\n")
         
         results_summary.append({
             'question': q,
@@ -452,12 +452,12 @@ def main():
 
     # Résumé final
     print("\n" + "="*60)
-    print("📋 RÉSUMÉ FINAL")
+    print(" RÉSUMÉ FINAL")
     print("="*60 + "\n")
     
     successful = sum(1 for r in results_summary if r['answer'] is not None)
-    print(f"✅ Réponses générées: {successful}/{len(results_summary)}")
-    print(f"❌ Échecs: {len(results_summary) - successful}/{len(results_summary)}")
+    print(f" Réponses générées: {successful}/{len(results_summary)}")
+    print(f" Échecs: {len(results_summary) - successful}/{len(results_summary)}")
     
     print("\n" + "="*60 + "\n")
 

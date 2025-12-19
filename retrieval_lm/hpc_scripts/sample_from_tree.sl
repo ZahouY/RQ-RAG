@@ -14,26 +14,24 @@ cd retrieval_lm
 
 
 # export PYTHONPATH="$(pwd):$PYTHONPATH"
+# --pruning_early_stopping necessite --selection_strategy majority_vote
 
-
-python ./inference.py \
+python output/sammple_from_tree.py \
 --model_name_or_path \
 "../models/rq_rag_llama2_7B" \
---input_file \
+--original_data \
 "data/hotpotqa_test.json" \
---output_path \
-"../output/houssam" \
---ndocs 3 \
---use_search_engine \
---use_hf \
+--run_name \
+"../output/inference" \
 --task popqa_longtail_w_gs \
---tree_decode \
---oracle \
---max_depth 2 \
---search_engine_type duckduckgo \
+--calc_depth \
+1 \
+2 \
+3 \
+--calc_width \
 --expand_on_tokens \
 "[S_Rewritten_Query]" \
 "[S_Decomposed_Query]" \
 "[S_Disambiguated_Query]" \
 "[A_Response]" \
---max_new_tokens 128
+--calc_retrieval_performance
